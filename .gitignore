@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/*
+# IDEs
+.vscode
+# Temps
+src/
+temp/
+tmp/
