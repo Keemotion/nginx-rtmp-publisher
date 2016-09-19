@@ -50,6 +50,9 @@ NGINX_SOURCE_URL=https://nginx.org/download/$NGINX_SOURCE_PACKAGE
 NGINX_SOURCE_DIR=$DIR/src/$NGINX_SOURCE_BASE
 NGINX_SOURCE_TGZ=$DIR/src/$NGINX_SOURCE_PACKAGE
 
+# ensure src dir exists
+mkdir -p $DIR/src
+
 # nginx - download
 if [ ! -f $NGINX_SOURCE_TGZ ]; then
   wget $NGINX_SOURCE_URL -O $NGINX_SOURCE_TGZ
@@ -57,7 +60,7 @@ else
   echo "Skip nginx download - source tarball found in $NGINX_SOURCE_TGZ"  
 fi;
 # nginx - unpack 
-if [ ! -f $NGINX_SOURCE_DIR/configure ]; then
+if [ ! -f $NGINX_SOURCE_DIR/auto/cc/sunc ]; then
   mkdir -p $NGINX_SOURCE_DIR
   tar -zxvf $NGINX_SOURCE_TGZ -C $DIR/src
 else
