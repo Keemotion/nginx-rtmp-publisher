@@ -13,7 +13,7 @@ def list_sorted_files(pattern):
     ])
     return files
 
-def assemble(stream, root):
+def assemble(stream, root, server='origin', version=VER):
     base = '%s%s' % (root, stream)
     index = os.path.join(root, '%s-0-segments.txt' % stream)
     files = list_sorted_files(os.path.join(root, stream) + '*.ts')
@@ -41,7 +41,7 @@ def assemble(stream, root):
         '-avoid_negative_ts',
         'make_zero',
         '-fflags', '+genpts',
-        os.path.join(TMP, '%s-%s.mp4' % (sys.platform, stream))
+        os.path.join(TMP, '%s-%s-%s.mp4' % (sys.platform, server, stream))
     ]
     print 'Assembling with:\n%s' % (' '.join(cmd),)
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -70,5 +70,7 @@ if __name__ == '__main__':
     root = '%s-%s-%s' % (args.version, sys.platform, args.server)
     assemble(
       stream=args.stream,
-      root=os.path.join(DIR, 'builds', root, 'temp', 'hls_temp')
+      root=os.path.join(DIR, 'builds', root, 'temp', 'hls_temp'),
+      server=args.server,
+      version=args.version,
     )
