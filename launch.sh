@@ -32,5 +32,9 @@ done
 # nginx server
 NGINX_BASE=$NGINX_VERSION-$OSTYPE-$NGINX_SERVER
 NGINX_SERVER_ROOT=$DIR/builds/$NGINX_BASE
-
-cd $NGINX_SERVER_ROOT && ./sbin/nginx && cd $DIR
+if [ -f $NGINX_SERVER_ROOT/sbin/nginx ]; then
+  echo "nginx binary is being launched"
+  cd $NGINX_SERVER_ROOT && ./sbin/nginx && cd $DIR
+else
+  echo "nginx binary does not exist or is inaccessible"
+fi;

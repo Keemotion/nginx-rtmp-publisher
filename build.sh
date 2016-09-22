@@ -43,7 +43,7 @@ done
 # nginx server
 NGINX_BASE=$NGINX_VERSION-$OSTYPE-$NGINX_SERVER
 NGINX_INSTALL_PREFIX=$DIR/builds/$NGINX_BASE
-NGINX_CONFIGURATION_TEMPLATE=$DIR/nginx.$NGINX_SERVER.rtmp.conf
+NGINX_CONFIGURATION_TEMPLATE=$DIR/conf/$NGINX_SERVER.conf
 NGINX_SOURCE_BASE=nginx-$NGINX_VERSION
 NGINX_SOURCE_PACKAGE=$NGINX_SOURCE_BASE.tar.gz
 NGINX_SOURCE_URL=https://nginx.org/download/$NGINX_SOURCE_PACKAGE
@@ -83,9 +83,9 @@ fi;
 echo "Entering in $NGINX_SOURCE_DIR to build at $NGINX_INSTALL_PREFIX"
 cd $NGINX_SOURCE_DIR
 
-echo "Configuring - Makefile not found in $NGINX_SOURCE_DIR/objs-$NGINX_SERVER"
-NGINX_OBJS_PATH=$NGINX_SOURCE_DIR/objs-$NGINX_SERVER
+NGINX_OBJS_PATH=$NGINX_SOURCE_DIR/objs-$OSTYPE-$NGINX_SERVER
 if [ ! -d $NGINX_OBJS_PATH ]; then
+  echo "Configuring - Makefile not found in $NGINX_OBJS_PATH"
   ./configure                                       \
     --builddir=$NGINX_OBJS_PATH                      \
     --prefix=$NGINX_INSTALL_PREFIX                  \
@@ -108,7 +108,7 @@ if [ ! -d $NGINX_OBJS_PATH ]; then
     --with-pcre                                     \
     --add-module=$NGINX_RTMP_MODULE_SOURCE_DIR
 else
-  echo "Already configured for build in objs-$NGINX_SERVER"
+  echo "Already configured for build in $NGINX_OBJS_PATH"
 fi;
 
 if [ ! -d $NGINX_OBJS_PATH ]; then
