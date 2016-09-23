@@ -15,7 +15,7 @@ def list_sorted_files(pattern):
 
 def assemble(stream, root, server='origin', version=VER):
     base = '%s%s' % (root, stream)
-    index = os.path.join(root, '%s-0-segments.txt' % stream)
+    index = os.path.join(root, '%s-segments.txt' % stream)
     files = list_sorted_files(os.path.join(root, stream) + '*.ts')
     # create temporary index file for ffmpeg assembler if it does not exist
     if not os.path.exists(index):
@@ -67,10 +67,15 @@ if __name__ == '__main__':
         default='bipbop-gear3'
     )
     args = parser.parse_args()
-    root = '%s-%s-%s' % (args.version, sys.platform, args.server)
-    assemble(
-      stream=args.stream,
-      root=os.path.join(DIR, 'builds', root, 'temp', 'hls_temp'),
-      server=args.server,
-      version=args.version,
-    )
+    platform = sys.platform
+    if sys.platform.lower() in ['win32', 'win64']:
+        # windows
+        msystem = os.environ.get('MSYSTEM')
+        if msystem is not None and msystem.lower() in ['mingw32', 'mingw64']:
+            platform = 'msys'
+        else:
+            platform = 'win'
+
+    root = '%s-%s-%s' % (args.version, platform, args.server)
+
+    print root

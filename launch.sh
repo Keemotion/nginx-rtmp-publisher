@@ -30,7 +30,7 @@ while true ; do
 done
 
 # nginx server
-NGINX_BASE=$NGINX_VERSION-$OSTYPE-$NGINX_SERVER
+NGINX_BASE=$OSTYPE/nginx/$NGINX_SERVER/$NGINX_VERSION
 NGINX_SERVER_ROOT=$DIR/builds/$NGINX_BASE
 if [ -f $NGINX_SERVER_ROOT/sbin/nginx ]; then
   echo "nginx binary is being launched"

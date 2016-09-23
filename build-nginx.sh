@@ -19,6 +19,7 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR=`realpath "$( cd -P "$( dirname "$SOURCE" )" && pwd )"`
 
+# Nginx
 NGINX_OS=`uname -o`
 NGINX_VERSION=1.11.4
 NGINX_SERVER=origin
@@ -40,8 +41,15 @@ while true ; do
     esac
 done
 
+# Nginx
+if [ ! -f $NGINX_SOURCE_TGZ ]; then
+  wget $NGINX_SOURCE_URL -O $NGINX_SOURCE_TGZ
+else
+  echo "Skip nginx download - source tarball found in $NGINX_SOURCE_TGZ"  
+fi;
+
 # nginx server
-NGINX_BASE=$NGINX_VERSION-$OSTYPE-$NGINX_SERVER
+NGINX_BASE=$OSTYPE/nginx/$NGINX_SERVER/$NGINX_VERSION
 NGINX_INSTALL_PREFIX=$DIR/builds/$NGINX_BASE
 NGINX_CONFIGURATION_TEMPLATE=$DIR/conf/$NGINX_SERVER.conf
 NGINX_SOURCE_BASE=nginx-$NGINX_VERSION
