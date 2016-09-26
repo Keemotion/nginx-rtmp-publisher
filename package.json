@@ -1,0 +1,29 @@
+{
+  "name": "nginx-rtmp-publisher",
+  "version": "1.0.0",
+  "description": "Publishes stream to remote machine using rtmp with segment delayed recovery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keemotion/nginx-rtmp-publisher.git"
+  },
+  "author": "Ionut Stoica <stoica.ionut@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Keemotion/nginx-rtmp-publisher/issues"
+  },
+  "homepage": "https://github.com/Keemotion/nginx-rtmp-publisher#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "glob": "^7.1.0",
+    "mkdirp": "^0.5.1",
+    "tmp": "0.0.29"
+  }
+}

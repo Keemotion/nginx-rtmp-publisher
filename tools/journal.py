@@ -1,7 +1,6 @@
 import argparse, glob, json, os, platform, re, subprocess, sys, tempfile
 from pprint import pprint
 
-VER = '1.11.4'
 DIR = os.path.dirname(__file__)
 TMP = os.path.join(DIR, 'tmp')
 
@@ -99,18 +98,18 @@ if __name__ == '__main__':
     inputdir = os.path.abspath(args.input)
     segments = list_sorted_files(os.path.join(inputdir, '*.ts'))
     # journal means file name as key and file size as checksum
-    withChecksum = True
-    journal = []
-    for segment in segments:
+    withChecksum = False
+    journal = {}
+    for index, segment in enumerate(segments):
         key = os.path.splitext(os.path.basename(segment))[0]
         size = os.stat(segment).st_size
         report = {
-          'key': key,
+          'index': index,
           'size': size,
         }
         if withChecksum:
             report['checksum'] = checksums_for_segment(segment) 
-        journal.append(report)
+        journal[key] = report
     # write journal
     with open(journal_path, 'w') as f:
         f.write(json.dumps(journal, sort_keys=True, indent=2, separators=(',', ': ')))
