@@ -3,7 +3,7 @@ node_modules/*
 # IDEs
 .vscode
 # Temps
-src/
+src/nginx*
 temp/
 tmp/
 builds/
